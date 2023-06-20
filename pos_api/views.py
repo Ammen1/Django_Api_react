@@ -52,20 +52,20 @@ class CreatePost(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
-# class CreatePost(APIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     parser_classes = [MultiPartParser, FormParser]
-#     authentication_classes = [JWTAuthentication]  # Add JWTAuthentication for token-based authentication
+class CreatePost(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+    authentication_classes = [JWTAuthentication]  # Add JWTAuthentication for token-based authentication
 
-#     def post(self, request, format=None):
-#         serializer = PostSerializer(data=request.data)
-#         if serializer.is_valid():
-#             content = serializer.validated_data['content']
-#             word_count = len(content.split())  # Calculate word count
-#             serializer.save(word_count=word_count)
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         else:
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, format=None):
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            content = serializer.validated_data['content']
+            word_count = len(content.split())  # Calculate word count
+            serializer.save(word_count=word_count)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
